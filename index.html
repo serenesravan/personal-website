@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Personal Website</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-sidebar">
+      Menu
+    </button>
+
+    <aside class="sidebar" id="site-sidebar">
+      <a class="site-name" href="#about" data-page="about" aria-label="Go to about page">Your Name</a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a class="nav-link active" href="#about" data-page="about">About Me</a>
+        <a class="nav-link" href="#education" data-page="education">Education</a>
+        <a class="nav-link" href="#work" data-page="work">Work</a>
+        <a class="nav-link" href="assets/resume.pdf" download>Resume</a>
+      </nav>
+    </aside>
+
+    <main class="page-content">
+      <section class="section about-section active-page" id="about" data-page-panel="about" tabindex="-1">
+        <div>
+          <p class="eyebrow">About Me</p>
+          <h1>Your Name</h1>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae
+            justo sed risus feugiat posuere. Curabitur porttitor, nibh nec dictum
+            interdum, sem ipsum finibus lectus, vitae facilisis lorem augue a nibh.
+          </p>
+        </div>
+        <img
+          class="profile-photo"
+          src="assets/profile-placeholder.png"
+          alt="Portrait of Your Name"
+          width="160"
+          height="160"
+        >
+      </section>
+
+      <section class="section" id="education" data-page-panel="education" tabindex="-1" hidden>
+        <p class="eyebrow">Education</p>
+        <h2>Education</h2>
+        <div class="list">
+          <article>
+            <h3>Primary School</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          </article>
+          <article>
+            <h3>High School</h3>
+            <p>Praesent vitae sem at lectus commodo elementum non eu ipsum.</p>
+          </article>
+          <article>
+            <h3>Intermediate</h3>
+            <p>Suspendisse potenti. Aenean faucibus velit sed lectus blandit.</p>
+          </article>
+          <article>
+            <h3>College</h3>
+            <p>Donec imperdiet urna at velit posuere, id luctus ipsum gravida.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="work" data-page-panel="work" tabindex="-1" hidden>
+        <p class="eyebrow">Work</p>
+        <h2>Work</h2>
+        <div class="list">
+          <article>
+            <h3>Company One</h3>
+            <p class="role">Title Held</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          </article>
+          <article>
+            <h3>Company Two</h3>
+            <p class="role">Title Held</p>
+            <p>Aliquam erat volutpat. Sed posuere magna ac ligula fermentum.</p>
+          </article>
+          <article>
+            <h3>Company Three</h3>
+            <p class="role">Title Held</p>
+            <p>Morbi maximus, augue non cursus vehicula, justo tellus mattis.</p>
+          </article>
+          <article>
+            <h3>Company Four</h3>
+            <p class="role">Title Held</p>
+            <p>Nam congue ex non velit porta, vitae accumsan leo pretium.</p>
+          </article>
+          <article>
+            <h3>Company Five</h3>
+            <p class="role">Title Held</p>
+            <p>Vivamus eleifend nibh sed lorem tristique, non ultricies neque.</p>
+          </article>
+        </div>
+      </section>
+
+      <footer class="site-footer">
+        <a href="mailto:you@example.com">you@example.com</a>
+        <a href="https://www.linkedin.com/in/your-profile">LinkedIn</a>
+        <a href="https://twitter.com/yourhandle">Twitter</a>
+      </footer>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
