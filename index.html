@@ -7,17 +7,25 @@
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
-    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-sidebar">
-      Menu
-    </button>
-
     <aside class="sidebar" id="site-sidebar">
       <a class="site-name" href="#about" data-page="about" aria-label="Go to about page">Your Name</a>
       <nav class="site-nav" aria-label="Primary navigation">
-        <a class="nav-link active" href="#about" data-page="about">About Me</a>
-        <a class="nav-link" href="#education" data-page="education">Education</a>
-        <a class="nav-link" href="#work" data-page="work">Work</a>
-        <a class="nav-link" href="assets/resume.pdf" download>Resume</a>
+        <a class="nav-link active" href="#about" data-page="about" aria-label="About Me">
+          <span class="full-label">About Me</span>
+          <span class="short-label" aria-hidden="true">A</span>
+        </a>
+        <a class="nav-link" href="#education" data-page="education" aria-label="Education">
+          <span class="full-label">Education</span>
+          <span class="short-label" aria-hidden="true">E</span>
+        </a>
+        <a class="nav-link" href="#work" data-page="work" aria-label="Work">
+          <span class="full-label">Work</span>
+          <span class="short-label" aria-hidden="true">W</span>
+        </a>
+        <a class="nav-link" href="assets/resume.pdf" download aria-label="Download Resume">
+          <span class="full-label">Resume</span>
+          <span class="short-label" aria-hidden="true">R</span>
+        </a>
       </nav>
     </aside>
 
@@ -25,19 +33,17 @@
       <section class="section about-section active-page" id="about" data-page-panel="about" tabindex="-1">
         <div>
           <p class="eyebrow">About Me</p>
-          <h1>Your Name</h1>
+          <h1>Sravan Bagalkote</h1>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae
-            justo sed risus feugiat posuere. Curabitur porttitor, nibh nec dictum
-            interdum, sem ipsum finibus lectus, vitae facilisis lorem augue a nibh.
+            I’m Sravan, with a Computer Science background and 12 years of experience in the software industry. I enjoy building useful things from early ideas and shaping rough thoughts into something clear and practical. Over the years, I’ve worked with different teams, products, and business needs, which has helped me understand both people and systems better. Outside work, I enjoy fitness, learning, and exploring personal projects. This website is a small space where I share what I’m building, learning, and thinking about.
           </p>
         </div>
         <img
           class="profile-photo"
-          src="assets/profile-placeholder.png"
+          src="assets/profile.JPG"
           alt="Portrait of Your Name"
-          width="160"
-          height="160"
+          width="200"
+          height="200"
         >
       </section>
 
@@ -47,19 +53,19 @@
         <div class="list">
           <article>
             <h3>Primary School</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <p>Little Angels, Surat and St Thomas High School, Hyderabad</p>
           </article>
           <article>
             <h3>High School</h3>
-            <p>Praesent vitae sem at lectus commodo elementum non eu ipsum.</p>
+            <p>Sanskar Vidya Bhavan, Bharuch</p>
           </article>
           <article>
             <h3>Intermediate</h3>
-            <p>Suspendisse potenti. Aenean faucibus velit sed lectus blandit.</p>
+            <p>Narayana IIT Academy, Hyderabad</p>
           </article>
           <article>
             <h3>College</h3>
-            <p>Donec imperdiet urna at velit posuere, id luctus ipsum gravida.</p>
+            <p>IIIT Hyderabad</p>
           </article>
         </div>
       </section>
@@ -69,37 +75,38 @@
         <h2>Work</h2>
         <div class="list">
           <article>
-            <h3>Company One</h3>
-            <p class="role">Title Held</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <h3>Innopark</h3>
+            <p class="role">Associate Software Engineer</p>
+            <p>Built a user validation system for user registrations in a games portal</p>
           </article>
           <article>
-            <h3>Company Two</h3>
-            <p class="role">Title Held</p>
-            <p>Aliquam erat volutpat. Sed posuere magna ac ligula fermentum.</p>
+            <h3>Arcesium</h3>
+            <p class="role">Technical Lead</p>
+            <p>Primary owner of a core operational UI platform used daily by ~200 analysts and managers across 4–5 reconciler ops teams, improving efficiency in day-to-day reconciliation workflows.</p>
+            <p>Built the supporting API layer and a thin backend for reconciliation statistics to power dashboards and operational reporting.</p>
           </article>
           <article>
-            <h3>Company Three</h3>
-            <p class="role">Title Held</p>
-            <p>Morbi maximus, augue non cursus vehicula, justo tellus mattis.</p>
+            <h3>Quince</h3>
+            <p class="role">Senior Software Engineer</p>
+            <p>Early engineer (#3) who helped build and launch the first version of the e-commerce product in ~1 month, owning key architecture decisions end-to-end.</p>
+            <p>Built major parts of the second-generation storefront that continues to power the live site.</p>
+            <p>Built an internal portal for product and inventory tracking, improving operational speed and visibility for business teams.</p>
+            <p>Contributed to early growth by shipping fast and reliably, supporting the business to reach $1M+ annual sales.</p>
           </article>
           <article>
-            <h3>Company Four</h3>
-            <p class="role">Title Held</p>
-            <p>Nam congue ex non velit porta, vitae accumsan leo pretium.</p>
-          </article>
-          <article>
-            <h3>Company Five</h3>
-            <p class="role">Title Held</p>
-            <p>Vivamus eleifend nibh sed lorem tristique, non ultricies neque.</p>
+            <h3>Arcesium</h3>
+            <p class="role">Principal Engineer</p>
+            <p>Building an agentic workflow framework that would help teams to automate internal business processes.</p>
+            <p>Built backend systems for a low-code/no-code data platform, including a query engine; drove adoption across 25–30 enterprise clients.</p>
+            <p>Built and scaled a high-performance PnL accounting engine for back-office systems; implemented core changes that increased supported data volume 10× while reducing infrastructure cost ~2×.</p>
           </article>
         </div>
       </section>
 
       <footer class="site-footer">
-        <a href="mailto:you@example.com">you@example.com</a>
-        <a href="https://www.linkedin.com/in/your-profile">LinkedIn</a>
-        <a href="https://twitter.com/yourhandle">Twitter</a>
+        <a href="mailto:sravanbagalkote@gmail.com">sravanbagalkote@gmail.com</a>
+        <a href="https://www.linkedin.com/in/sravanbagalkote/">LinkedIn</a>
+        <a href="https://x.com/serenesravan">Twitter</a>
       </footer>
     </main>
 

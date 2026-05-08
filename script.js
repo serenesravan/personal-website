@@ -1,13 +1,6 @@
-const menuButton = document.querySelector(".menu-toggle");
-const sidebar = document.querySelector(".sidebar");
 const pageLinks = document.querySelectorAll("[data-page]");
 const navLinks = document.querySelectorAll(".nav-link[data-page]");
 const pagePanels = document.querySelectorAll("[data-page-panel]");
-
-const closeMenu = () => {
-  sidebar.classList.remove("open");
-  menuButton.setAttribute("aria-expanded", "false");
-};
 
 const showPage = (pageName, updateUrl = true) => {
   const targetPanel = document.querySelector(`[data-page-panel="${pageName}"]`);
@@ -33,16 +26,10 @@ const showPage = (pageName, updateUrl = true) => {
   targetPanel.focus({ preventScroll: true });
 };
 
-menuButton.addEventListener("click", () => {
-  const isOpen = sidebar.classList.toggle("open");
-  menuButton.setAttribute("aria-expanded", String(isOpen));
-});
-
 pageLinks.forEach((link) => {
   link.addEventListener("click", (event) => {
     event.preventDefault();
     showPage(link.dataset.page);
-    closeMenu();
   });
 });
 

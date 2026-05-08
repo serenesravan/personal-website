@@ -6,7 +6,7 @@ A simple static personal website built with plain HTML, CSS, and JavaScript.
 
 - `index.html` contains the page structure and content.
 - `styles.css` contains the visual styling.
-- `script.js` controls the mobile menu and swaps visible pages from the sidebar.
+- `script.js` swaps visible pages from the navigation links.
 - `assets/profile-placeholder.png` is a temporary profile image.
 - `assets/resume.pdf` is a temporary resume PDF used by the download link.
 
