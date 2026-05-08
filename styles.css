@@ -91,10 +91,11 @@ a {
 
 .profile-photo {
   flex: 0 0 auto;
-  width: 160px;
-  height: 160px;
+  width: 180px;
+  height: auto;
+  max-width: 100%;
   border: 1px solid var(--border);
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .eyebrow {
@@ -220,8 +221,8 @@ article {
   }
 
   .profile-photo {
-    width: 132px;
-    height: 132px;
+    width: min(180px, 100%);
+    height: auto;
   }
 
   h1 {
