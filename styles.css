@@ -142,8 +142,14 @@ article {
 }
 
 .role {
+  margin-bottom: 2px;
+  color: var(--muted);
+}
+
+.experience {
   margin-bottom: 8px;
   color: var(--muted);
+  font-size: 14px;
 }
 
 .site-footer {
