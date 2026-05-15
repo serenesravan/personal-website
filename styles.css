@@ -181,12 +181,13 @@ article {
   }
 
   .menu-toggle {
-    display: inline-grid;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     width: 52px;
     height: 52px;
-    place-items: center;
-    gap: 5px;
-    padding: 14px;
+    padding: 0;
     color: var(--text);
     background: var(--background);
     border: 1px solid var(--border);
@@ -196,6 +197,9 @@ article {
   }
 
   .menu-toggle span {
+    position: absolute;
+    left: 50%;
+    top: 50%;
     display: block;
     width: 22px;
     height: 2px;
@@ -204,16 +208,29 @@ article {
     transition: transform 160ms ease, opacity 160ms ease;
   }
 
+  .menu-toggle span:first-child {
+    transform: translate(-50%, -8px);
+  }
+
+  .menu-toggle span:nth-child(2) {
+    transform: translate(-50%, -50%);
+  }
+
+  .menu-toggle span:last-child {
+    transform: translate(-50%, 6px);
+  }
+
   .sidebar.menu-open .menu-toggle span:first-child {
-    transform: translateY(7px) rotate(45deg);
+    transform: translate(-50%, -50%) rotate(45deg);
   }
 
   .sidebar.menu-open .menu-toggle span:nth-child(2) {
     opacity: 0;
+    transform: translate(-50%, -50%) scaleX(0);
   }
 
   .sidebar.menu-open .menu-toggle span:last-child {
-    transform: translateY(-7px) rotate(-45deg);
+    transform: translate(-50%, -50%) rotate(-45deg);
   }
 
   .site-nav {
