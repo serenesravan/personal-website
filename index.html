@@ -58,19 +58,21 @@
   <body>
     <aside class="sidebar" id="site-sidebar">
       <a class="site-name" href="#about" data-page="about" aria-label="Go to about page">Sravan Bagalkote</a>
-      <nav class="site-nav" aria-label="Primary navigation">
-        <a class="nav-link active" href="#about" data-page="about" aria-label="About Me">
-          <span class="full-label">About Me</span>
-          <span class="short-label" aria-hidden="true">A</span>
-        </a>
-        <a class="nav-link" href="#education" data-page="education" aria-label="Education">
-          <span class="full-label">Education</span>
-          <span class="short-label" aria-hidden="true">E</span>
-        </a>
-        <a class="nav-link" href="#work" data-page="work" aria-label="Work">
-          <span class="full-label">Work</span>
-          <span class="short-label" aria-hidden="true">W</span>
-        </a>
+      <button
+        class="menu-toggle"
+        type="button"
+        aria-label="Open navigation menu"
+        aria-controls="site-nav"
+        aria-expanded="false"
+      >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+      <nav class="site-nav" id="site-nav" aria-label="Primary navigation">
+        <a class="nav-link active" href="#about" data-page="about">About Me</a>
+        <a class="nav-link" href="#education" data-page="education">Education</a>
+        <a class="nav-link" href="#work" data-page="work">Work</a>
       </nav>
     </aside>
 
