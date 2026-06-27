@@ -147,8 +147,14 @@ article {
 
 .crossfit-controls {
   display: grid;
-  gap: 8px;
+  grid-template-columns: minmax(0, 1fr) minmax(140px, 0.45fr);
+  gap: 14px;
   margin-bottom: 20px;
+}
+
+.crossfit-controls > div {
+  display: grid;
+  gap: 8px;
 }
 
 .crossfit-controls label,
@@ -158,7 +164,7 @@ article {
 }
 
 .crossfit-controls select {
-  width: min(100%, 420px);
+  width: 100%;
   min-height: 44px;
   padding: 8px 10px;
   color: var(--text);
@@ -374,6 +380,10 @@ article {
   }
 
   .stat-row {
+    grid-template-columns: 1fr;
+  }
+
+  .crossfit-controls {
     grid-template-columns: 1fr;
   }
 

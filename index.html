@@ -161,10 +161,18 @@
         <p class="eyebrow">Crossfit</p>
         <h2>Strength Stats</h2>
         <div class="crossfit-controls">
-          <label for="crossfit-workout">Workout</label>
-          <select id="crossfit-workout" name="crossfit-workout">
-            <option value="">Loading workouts...</option>
-          </select>
+          <div>
+            <label for="crossfit-workout">Workout</label>
+            <select id="crossfit-workout" name="crossfit-workout">
+              <option value="">Loading workouts...</option>
+            </select>
+          </div>
+          <div>
+            <label for="crossfit-metric">Rep max</label>
+            <select id="crossfit-metric" name="crossfit-metric" disabled>
+              <option value="">Select workout first</option>
+            </select>
+          </div>
         </div>
         <div class="crossfit-summary" aria-live="polite">
           <p class="role" id="crossfit-status">Fetching latest values from the journal.</p>

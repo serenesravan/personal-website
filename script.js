@@ -5,6 +5,7 @@ const sidebar = document.querySelector("#site-sidebar");
 const menuToggle = document.querySelector(".menu-toggle");
 const crossfitApiBase = "https://personal-kv.sravanbagalkote.workers.dev/v1/crossfit";
 const crossfitSelect = document.querySelector("#crossfit-workout");
+const crossfitMetricSelect = document.querySelector("#crossfit-metric");
 const crossfitStatus = document.querySelector("#crossfit-status");
 const crossfitStatRow = document.querySelector("#crossfit-stat-row");
 const crossfitBest = document.querySelector("#crossfit-best");
@@ -12,6 +13,7 @@ const crossfitLatest = document.querySelector("#crossfit-latest");
 const crossfitCount = document.querySelector("#crossfit-count");
 const crossfitChart = document.querySelector("#crossfit-chart");
 let crossfitLoaded = false;
+let crossfitWorkoutMap = new Map();
 
 const setMenuOpen = (isOpen) => {
   if (!sidebar || !menuToggle) {
@@ -91,8 +93,14 @@ showPage(window.location.hash.replace("#", "") || "about", false);
 
 if (crossfitSelect) {
   crossfitSelect.addEventListener("change", () => {
-    if (crossfitSelect.value) {
-      loadCrossfitWorkout(crossfitSelect.value);
+    updateCrossfitMetricOptions(crossfitSelect.value);
+  });
+}
+
+if (crossfitMetricSelect) {
+  crossfitMetricSelect.addEventListener("change", () => {
+    if (crossfitMetricSelect.value) {
+      loadCrossfitWorkout(crossfitMetricSelect.value);
     }
   });
 }
@@ -112,30 +120,31 @@ async function loadCrossfitWorkouts() {
     }
 
     const payload = await response.json();
-    const keys = (payload.keys || [])
-      .map((item) => item.key)
-      .filter((key) => key.startsWith("weights/"))
-      .sort((a, b) => workoutLabel(a).localeCompare(workoutLabel(b)));
+    crossfitWorkoutMap = buildWorkoutMap(
+      (payload.keys || []).map((item) => item.key).filter((key) => key.startsWith("weights/"))
+    );
 
     crossfitSelect.replaceChildren();
 
-    if (keys.length === 0) {
+    if (crossfitWorkoutMap.size === 0) {
       crossfitSelect.append(new Option("No workouts found", ""));
+      resetCrossfitMetricSelect("No rep max found");
       setCrossfitStatus("No parsed workout stats found yet.");
       renderEmptyChart("Run the iPhone Notes import once to populate stats.");
       return;
     }
 
-    keys.forEach((key) => {
-      crossfitSelect.append(new Option(workoutLabel(key), key));
+    const workouts = [...crossfitWorkoutMap.keys()].sort((a, b) => titleize(a).localeCompare(titleize(b)));
+    workouts.forEach((movement) => {
+      crossfitSelect.append(new Option(titleize(movement), movement));
     });
 
-    const initialKey = keys.includes("weights/back-squat/1rm") ? "weights/back-squat/1rm" : keys[0];
-    crossfitSelect.value = initialKey;
-    await loadCrossfitWorkout(initialKey);
+    crossfitSelect.value = crossfitWorkoutMap.has("back-squat") ? "back-squat" : workouts[0];
+    updateCrossfitMetricOptions(crossfitSelect.value);
   } catch (error) {
     crossfitLoaded = false;
     setCrossfitStatus(error.message || "Unable to load Crossfit stats.");
+    resetCrossfitMetricSelect("Unavailable");
     renderEmptyChart("Stats are unavailable right now.");
   }
 }
@@ -174,6 +183,72 @@ async function loadCrossfitWorkout(key) {
     crossfitStatRow.hidden = true;
     renderEmptyChart("Stats are unavailable right now.");
   }
+}
+
+function updateCrossfitMetricOptions(movement) {
+  if (!crossfitMetricSelect) {
+    return;
+  }
+
+  const entries = crossfitWorkoutMap.get(movement) || [];
+  crossfitMetricSelect.replaceChildren();
+
+  if (entries.length === 0) {
+    resetCrossfitMetricSelect("No rep max found");
+    crossfitStatRow.hidden = true;
+    renderEmptyChart("No rep max entries found.");
+    return;
+  }
+
+  entries.forEach((entry) => {
+    crossfitMetricSelect.append(new Option(metricLabel(entry.metric), entry.key));
+  });
+
+  const preferred = entries.find((entry) => entry.metric === "1rm") || entries[0];
+  crossfitMetricSelect.value = preferred.key;
+  crossfitMetricSelect.disabled = false;
+  loadCrossfitWorkout(preferred.key);
+}
+
+function resetCrossfitMetricSelect(message) {
+  if (!crossfitMetricSelect) {
+    return;
+  }
+
+  crossfitMetricSelect.replaceChildren(new Option(message, ""));
+  crossfitMetricSelect.disabled = true;
+}
+
+function buildWorkoutMap(keys) {
+  const workoutMap = new Map();
+
+  keys.forEach((key) => {
+    const [, movement, metric] = key.split("/");
+    if (!movement || !metric) {
+      return;
+    }
+
+    if (!workoutMap.has(movement)) {
+      workoutMap.set(movement, []);
+    }
+
+    workoutMap.get(movement).push({ key, metric });
+  });
+
+  workoutMap.forEach((entries) => {
+    entries.sort((a, b) => metricSortValue(a.metric) - metricSortValue(b.metric) || a.metric.localeCompare(b.metric));
+  });
+
+  return workoutMap;
+}
+
+function metricSortValue(metric) {
+  const repMaxMatch = metric.match(/^(\d+)rm$/);
+  if (repMaxMatch) {
+    return Number(repMaxMatch[1]);
+  }
+
+  return Number.MAX_SAFE_INTEGER;
 }
 
 function renderChart(values) {
@@ -242,10 +317,28 @@ function appendSvg(name, attributes, text = "") {
 
 function workoutLabel(key) {
   const [, movement = "", metric = ""] = key.split("/");
-  return `${titleize(movement)} ${metric.toUpperCase()}`.trim();
+  return `${titleize(movement)} ${metricLabel(metric)}`.trim();
+}
+
+function metricLabel(metric) {
+  const repMaxMatch = metric.match(/^(\d+)rm$/);
+  if (repMaxMatch) {
+    return `${repMaxMatch[1]}RM`;
+  }
+
+  return metric.toUpperCase();
 }
 
 function titleize(value) {
+  const displayOverrides = {
+    candj: "C&J",
+    sdhp: "SDHP"
+  };
+
+  if (displayOverrides[value]) {
+    return displayOverrides[value];
+  }
+
   return value
     .split("-")
     .filter(Boolean)
