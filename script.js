@@ -9,8 +9,6 @@ const crossfitMetricSelect = document.querySelector("#crossfit-metric");
 const crossfitStatus = document.querySelector("#crossfit-status");
 const crossfitStatRow = document.querySelector("#crossfit-stat-row");
 const crossfitBest = document.querySelector("#crossfit-best");
-const crossfitLatest = document.querySelector("#crossfit-latest");
-const crossfitCount = document.querySelector("#crossfit-count");
 const crossfitChart = document.querySelector("#crossfit-chart");
 let crossfitLoaded = false;
 let crossfitWorkoutMap = new Map();
@@ -173,8 +171,6 @@ async function loadCrossfitWorkout(key) {
     }
 
     crossfitBest.textContent = `${Math.max(...completedWeights)} kg`;
-    crossfitLatest.textContent = `${completedWeights[completedWeights.length - 1]} kg`;
-    crossfitCount.textContent = String(completedWeights.length);
     crossfitStatRow.hidden = false;
     setCrossfitStatus(`${entry.movement}${entry.reps ? ` ${entry.reps}RM` : ""}`);
     renderChart(latestWeights);
