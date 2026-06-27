@@ -165,18 +165,26 @@ async function loadCrossfitWorkout(key) {
 
     if (completedWeights.length === 0) {
       setCrossfitStatus(`${entry.movement} has no completed kg entries yet.`);
-      crossfitStatRow.hidden = true;
+      if (crossfitStatRow) {
+        crossfitStatRow.hidden = true;
+      }
       renderEmptyChart("No completed kg entries.");
       return;
     }
 
-    crossfitBest.textContent = `${Math.max(...completedWeights)} kg`;
-    crossfitStatRow.hidden = false;
+    if (crossfitBest) {
+      crossfitBest.textContent = `${Math.max(...completedWeights)} kg`;
+    }
+    if (crossfitStatRow) {
+      crossfitStatRow.hidden = false;
+    }
     setCrossfitStatus(`${entry.movement}${entry.reps ? ` ${entry.reps}RM` : ""}`);
     renderChart(latestWeights);
   } catch (error) {
     setCrossfitStatus(error.message || "Unable to load selected workout.");
-    crossfitStatRow.hidden = true;
+    if (crossfitStatRow) {
+      crossfitStatRow.hidden = true;
+    }
     renderEmptyChart("Stats are unavailable right now.");
   }
 }
@@ -191,7 +199,9 @@ function updateCrossfitMetricOptions(movement) {
 
   if (entries.length === 0) {
     resetCrossfitMetricSelect("No rep max found");
-    crossfitStatRow.hidden = true;
+    if (crossfitStatRow) {
+      crossfitStatRow.hidden = true;
+    }
     renderEmptyChart("No rep max entries found.");
     return;
   }
