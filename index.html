@@ -73,6 +73,7 @@
         <a class="nav-link active" href="#about" data-page="about">About Me</a>
         <a class="nav-link" href="#education" data-page="education">Education</a>
         <a class="nav-link" href="#work" data-page="work">Work</a>
+        <a class="nav-link" href="#crossfit" data-page="crossfit">Crossfit</a>
       </nav>
     </aside>
 
@@ -153,6 +154,40 @@
             <p class="experience">0.5 Years</p>
             <p>Built a user validation system for user registrations in a games portal</p>
           </article>
+        </div>
+      </section>
+
+      <section class="section" id="crossfit" data-page-panel="crossfit" tabindex="-1" hidden>
+        <p class="eyebrow">Crossfit</p>
+        <h2>Strength Stats</h2>
+        <div class="crossfit-controls">
+          <label for="crossfit-workout">Workout</label>
+          <select id="crossfit-workout" name="crossfit-workout">
+            <option value="">Loading workouts...</option>
+          </select>
+        </div>
+        <div class="crossfit-summary" aria-live="polite">
+          <p class="role" id="crossfit-status">Fetching latest values from the journal.</p>
+          <div class="stat-row" id="crossfit-stat-row" hidden>
+            <div>
+              <span class="stat-label">Best</span>
+              <strong id="crossfit-best">--</strong>
+            </div>
+            <div>
+              <span class="stat-label">Latest</span>
+              <strong id="crossfit-latest">--</strong>
+            </div>
+            <div>
+              <span class="stat-label">Entries</span>
+              <strong id="crossfit-count">--</strong>
+            </div>
+          </div>
+        </div>
+        <div class="chart-shell" aria-label="Latest Crossfit values">
+          <svg id="crossfit-chart" viewBox="0 0 640 300" role="img" aria-labelledby="crossfit-chart-title crossfit-chart-desc">
+            <title id="crossfit-chart-title">Crossfit workout graph</title>
+            <desc id="crossfit-chart-desc">Latest completed kilogram entries for the selected workout.</desc>
+          </svg>
         </div>
       </section>
 

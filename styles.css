@@ -12,6 +12,10 @@
   box-sizing: border-box;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 body {
   margin: 0;
   background: var(--background);
@@ -139,6 +143,88 @@ h3 {
 article {
   border-top: 1px solid var(--border);
   padding-top: 14px;
+}
+
+.crossfit-controls {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.crossfit-controls label,
+.stat-label {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.crossfit-controls select {
+  width: min(100%, 420px);
+  min-height: 44px;
+  padding: 8px 10px;
+  color: var(--text);
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font: inherit;
+}
+
+.crossfit-summary {
+  margin-bottom: 20px;
+}
+
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  border-top: 1px solid var(--border);
+  padding-top: 14px;
+}
+
+.stat-row > div {
+  display: grid;
+  gap: 2px;
+}
+
+.stat-row strong {
+  font-size: 20px;
+  line-height: 1.25;
+}
+
+.chart-shell {
+  width: 100%;
+  overflow-x: auto;
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+}
+
+#crossfit-chart {
+  display: block;
+  width: 100%;
+  min-width: 520px;
+  height: auto;
+}
+
+.chart-axis,
+.chart-grid {
+  stroke: var(--border);
+  stroke-width: 1;
+}
+
+.chart-line {
+  fill: none;
+  stroke: var(--text);
+  stroke-width: 2.5;
+}
+
+.chart-point {
+  fill: var(--background);
+  stroke: var(--text);
+  stroke-width: 2;
+}
+
+.chart-label {
+  fill: var(--muted);
+  font-size: 12px;
 }
 
 .role {
@@ -285,6 +371,14 @@ article {
   .profile-photo {
     width: min(180px, 100%);
     height: auto;
+  }
+
+  .stat-row {
+    grid-template-columns: 1fr;
+  }
+
+  #crossfit-chart {
+    min-width: 460px;
   }
 
   h1 {
