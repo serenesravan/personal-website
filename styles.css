@@ -233,6 +233,46 @@ article {
   font-size: 12px;
 }
 
+.thoughts-summary {
+  margin-bottom: 12px;
+}
+
+.thought-count {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.thoughts-list {
+  display: grid;
+  gap: 0;
+}
+
+.thought-entry {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  gap: 14px;
+  border-top: 1px solid var(--border);
+  padding: 16px 0;
+}
+
+.thought-entry:last-child {
+  border-bottom: 1px solid var(--border);
+}
+
+.thought-number {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.thought-text {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+
 .role {
   margin-bottom: 2px;
   color: var(--muted);
@@ -381,6 +421,15 @@ article {
 
   .stat-row {
     grid-template-columns: 1fr;
+  }
+
+  .thought-entry {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .thought-text {
+    font-size: 17px;
   }
 
   .crossfit-controls {

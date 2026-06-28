@@ -4,14 +4,19 @@ const pagePanels = document.querySelectorAll("[data-page-panel]");
 const sidebar = document.querySelector("#site-sidebar");
 const menuToggle = document.querySelector(".menu-toggle");
 const crossfitApiBase = "https://personal-kv.sravanbagalkote.workers.dev/v1/crossfit";
+const thoughtsApiBase = "https://personal-kv.sravanbagalkote.workers.dev/v1/thoughts";
 const crossfitSelect = document.querySelector("#crossfit-workout");
 const crossfitMetricSelect = document.querySelector("#crossfit-metric");
 const crossfitStatus = document.querySelector("#crossfit-status");
 const crossfitStatRow = document.querySelector("#crossfit-stat-row");
 const crossfitBest = document.querySelector("#crossfit-best");
 const crossfitChart = document.querySelector("#crossfit-chart");
+const thoughtsStatus = document.querySelector("#thoughts-status");
+const thoughtsCount = document.querySelector("#thought-count");
+const thoughtsList = document.querySelector("#thoughts-list");
 let crossfitLoaded = false;
 let crossfitWorkoutMap = new Map();
+let thoughtsLoaded = false;
 
 const setMenuOpen = (isOpen) => {
   if (!sidebar || !menuToggle) {
@@ -48,6 +53,10 @@ const showPage = (pageName, updateUrl = true) => {
 
   if (pageName === "crossfit") {
     loadCrossfitWorkouts();
+  }
+
+  if (pageName === "thoughts") {
+    loadThoughts();
   }
 };
 
@@ -145,6 +154,98 @@ async function loadCrossfitWorkouts() {
     resetCrossfitMetricSelect("Unavailable");
     renderEmptyChart("Stats are unavailable right now.");
   }
+}
+
+async function loadThoughts() {
+  if (thoughtsLoaded || !thoughtsList) {
+    return;
+  }
+
+  thoughtsLoaded = true;
+  setThoughtsStatus("Fetching latest notes.");
+  thoughtsList.replaceChildren();
+  if (thoughtsCount) {
+    thoughtsCount.hidden = true;
+  }
+
+  try {
+    const response = await fetch(thoughtsApiBase);
+    if (!response.ok) {
+      throw new Error(`Unable to load thoughts (${response.status})`);
+    }
+
+    const payload = await response.json();
+    const keys = (payload.keys || [])
+      .map((item) => item.key)
+      .filter((key) => key.startsWith("entries/"))
+      .sort((a, b) => thoughtIdFromKey(b) - thoughtIdFromKey(a));
+
+    if (keys.length === 0) {
+      setThoughtsStatus("No thoughts published yet.");
+      return;
+    }
+
+    const thoughts = await Promise.all(keys.map((key) => fetchThought(key)));
+    renderThoughts(thoughts.filter(Boolean));
+  } catch (error) {
+    thoughtsLoaded = false;
+    setThoughtsStatus(error.message || "Unable to load thoughts.");
+  }
+}
+
+async function fetchThought(key) {
+  const response = await fetch(`${thoughtsApiBase}/${key}`);
+  if (!response.ok) {
+    throw new Error(`Unable to load ${key} (${response.status})`);
+  }
+
+  const thought = await response.json();
+  if (typeof thought.text !== "string" || !thought.text.trim()) {
+    return null;
+  }
+
+  return thought;
+}
+
+function renderThoughts(thoughts) {
+  if (!thoughtsList) {
+    return;
+  }
+
+  thoughtsList.replaceChildren();
+  if (thoughts.length === 0) {
+    setThoughtsStatus("No thoughts published yet.");
+    if (thoughtsCount) {
+      thoughtsCount.hidden = true;
+    }
+    return;
+  }
+
+  thoughts.forEach((thought) => {
+    const article = document.createElement("article");
+    const number = document.createElement("span");
+    const text = document.createElement("p");
+
+    article.className = "thought-entry";
+    number.className = "thought-number";
+    number.textContent = `#${thought.id}`;
+    text.className = "thought-text";
+    text.textContent = thought.text;
+
+    article.append(number, text);
+    thoughtsList.append(article);
+  });
+
+  if (thoughtsCount) {
+    thoughtsCount.textContent = `${thoughts.length} ${thoughts.length === 1 ? "thought" : "thoughts"}`;
+    thoughtsCount.hidden = false;
+  }
+  setThoughtsStatus("Latest from Apple Notes.");
+}
+
+function thoughtIdFromKey(key) {
+  const id = Number(key.split("/").pop());
+  return Number.isFinite(id) ? id : 0;
 }
 
 async function loadCrossfitWorkout(key) {
@@ -355,5 +456,11 @@ function titleize(value) {
 function setCrossfitStatus(message) {
   if (crossfitStatus) {
     crossfitStatus.textContent = message;
+  }
+}
+
+function setThoughtsStatus(message) {
+  if (thoughtsStatus) {
+    thoughtsStatus.textContent = message;
   }
 }

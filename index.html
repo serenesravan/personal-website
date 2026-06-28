@@ -23,7 +23,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
     <link rel="manifest" href="site.webmanifest">
-    <link rel="stylesheet" href="styles.css?v=20260628-crossfit-summary">
+    <link rel="stylesheet" href="styles.css?v=20260628-thoughts">
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -74,6 +74,7 @@
         <a class="nav-link" href="#education" data-page="education">Education</a>
         <a class="nav-link" href="#work" data-page="work">Work</a>
         <a class="nav-link" href="#crossfit" data-page="crossfit">Crossfit</a>
+        <a class="nav-link" href="#thoughts" data-page="thoughts">Thoughts</a>
       </nav>
     </aside>
 
@@ -191,6 +192,16 @@
         </div>
       </section>
 
+      <section class="section thoughts-section" id="thoughts" data-page-panel="thoughts" tabindex="-1" hidden>
+        <p class="eyebrow">Thoughts</p>
+        <h2>Notes to Self</h2>
+        <div class="thoughts-summary" aria-live="polite">
+          <p class="role" id="thoughts-status">Fetching latest notes.</p>
+          <p class="thought-count" id="thought-count" hidden></p>
+        </div>
+        <div class="thoughts-list" id="thoughts-list"></div>
+      </section>
+
       <footer class="site-footer">
         <a href="mailto:sravanbagalkote@gmail.com">sravanbagalkote@gmail.com</a>
         <a href="https://www.linkedin.com/in/sravanbagalkote/">LinkedIn</a>
@@ -199,6 +210,6 @@
       </footer>
     </main>
 
-    <script src="script.js?v=20260628-crossfit-summary"></script>
+    <script src="script.js?v=20260628-thoughts"></script>
   </body>
 </html>
