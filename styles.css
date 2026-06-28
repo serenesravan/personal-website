@@ -237,27 +237,16 @@ article {
   margin-bottom: 12px;
 }
 
-.thought-count {
-  margin: 0;
-  color: var(--muted);
-  font-size: 14px;
-}
-
 .thoughts-list {
   display: grid;
-  gap: 0;
+  gap: 24px;
 }
 
 .thought-entry {
   display: grid;
-  grid-template-columns: 56px minmax(0, 1fr);
-  gap: 14px;
-  border-top: 1px solid var(--border);
-  padding: 16px 0;
-}
-
-.thought-entry:last-child {
-  border-bottom: 1px solid var(--border);
+  grid-template-columns: 48px minmax(0, 1fr);
+  gap: 18px;
+  padding: 2px 0;
 }
 
 .thought-number {
@@ -271,6 +260,7 @@ article {
   font-size: 18px;
   line-height: 1.65;
   overflow-wrap: anywhere;
+  white-space: pre-line;
 }
 
 .role {
@@ -426,6 +416,12 @@ article {
   .thought-entry {
     grid-template-columns: 1fr;
     gap: 4px;
+    border-top: 1px solid var(--border);
+    padding: 16px 0;
+  }
+
+  .thought-entry:last-child {
+    border-bottom: 1px solid var(--border);
   }
 
   .thought-text {

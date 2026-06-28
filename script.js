@@ -12,7 +12,6 @@ const crossfitStatRow = document.querySelector("#crossfit-stat-row");
 const crossfitBest = document.querySelector("#crossfit-best");
 const crossfitChart = document.querySelector("#crossfit-chart");
 const thoughtsStatus = document.querySelector("#thoughts-status");
-const thoughtsCount = document.querySelector("#thought-count");
 const thoughtsList = document.querySelector("#thoughts-list");
 let crossfitLoaded = false;
 let crossfitWorkoutMap = new Map();
@@ -164,9 +163,6 @@ async function loadThoughts() {
   thoughtsLoaded = true;
   setThoughtsStatus("Fetching latest notes.");
   thoughtsList.replaceChildren();
-  if (thoughtsCount) {
-    thoughtsCount.hidden = true;
-  }
 
   try {
     const response = await fetch(thoughtsApiBase);
@@ -215,9 +211,6 @@ function renderThoughts(thoughts) {
   thoughtsList.replaceChildren();
   if (thoughts.length === 0) {
     setThoughtsStatus("No thoughts published yet.");
-    if (thoughtsCount) {
-      thoughtsCount.hidden = true;
-    }
     return;
   }
 
@@ -236,11 +229,7 @@ function renderThoughts(thoughts) {
     thoughtsList.append(article);
   });
 
-  if (thoughtsCount) {
-    thoughtsCount.textContent = `${thoughts.length} ${thoughts.length === 1 ? "thought" : "thoughts"}`;
-    thoughtsCount.hidden = false;
-  }
-  setThoughtsStatus("Latest from Apple Notes.");
+  setThoughtsStatus("");
 }
 
 function thoughtIdFromKey(key) {
