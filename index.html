@@ -23,7 +23,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
     <link rel="manifest" href="site.webmanifest">
-    <link rel="stylesheet" href="styles.css?v=20260704-others">
+    <link rel="stylesheet" href="styles.css?v=20260704-diagram">
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -240,6 +240,15 @@
           <p>
             So, I setup it up in the following way. An Apple Shortcut reads the note that contains my thoughts, extracts the text, and sends it as a text/plain request to a Cloudflare Worker endpoint. The Worker authenticates, splits the entire note into separate thought blocks and writes the published JSON into Cloudflare KV. The JSON is available to the internet thereafter. The trigger is whenever I edit that particular notes.
           </p>
+          <figure class="article-figure">
+            <img
+              src="assets/syncing-thoughts-architecture.png"
+              alt="Architecture diagram showing Apple Notes and Shortcut writing to Cloudflare Worker and KV, with the website reading from the same Cloudflare block."
+              width="1693"
+              height="929"
+              loading="lazy"
+            >
+          </figure>
           <p>
             The live result is visible in <a href="#thoughts" data-page="thoughts">Thoughts</a>. I used the same pattern for my <a href="#crossfit" data-page="crossfit">Crossfit journal</a> too: the details are different, but the idea is the same, letting a phone note become structured data on the internet.
           </p>

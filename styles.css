@@ -303,6 +303,17 @@ article {
   margin-bottom: 0;
 }
 
+.article-figure {
+  margin: 24px 0;
+}
+
+.article-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+}
+
 .thoughts-list {
   display: grid;
   gap: 24px;
