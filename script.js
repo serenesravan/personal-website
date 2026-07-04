@@ -1,5 +1,6 @@
 const pageLinks = document.querySelectorAll("[data-page]");
 const navLinks = document.querySelectorAll(".nav-link[data-page]");
+const subnavLinks = document.querySelectorAll(".subnav-link[data-page]");
 const pagePanels = document.querySelectorAll("[data-page-panel]");
 const sidebar = document.querySelector("#site-sidebar");
 const menuToggle = document.querySelector(".menu-toggle");
@@ -13,9 +14,26 @@ const crossfitBest = document.querySelector("#crossfit-best");
 const crossfitChart = document.querySelector("#crossfit-chart");
 const thoughtsStatus = document.querySelector("#thoughts-status");
 const thoughtsList = document.querySelector("#thoughts-list");
+const projectIndex = document.querySelector("[data-project-index]");
+const projectArticles = document.querySelectorAll("[data-project-article]");
 let crossfitLoaded = false;
 let crossfitWorkoutMap = new Map();
 let thoughtsLoaded = false;
+
+const resolveRoute = () => {
+  const hash = window.location.hash.replace("#", "");
+
+  if (!hash) {
+    return { pageName: "about", sectionId: "" };
+  }
+
+  const projectArticle = document.getElementById(hash);
+  if (projectArticle?.hasAttribute("data-project-article")) {
+    return { pageName: "projects", sectionId: hash };
+  }
+
+  return { pageName: hash, sectionId: "" };
+};
 
 const setMenuOpen = (isOpen) => {
   if (!sidebar || !menuToggle) {
@@ -27,7 +45,7 @@ const setMenuOpen = (isOpen) => {
   menuToggle.setAttribute("aria-label", isOpen ? "Close navigation menu" : "Open navigation menu");
 };
 
-const showPage = (pageName, updateUrl = true) => {
+const showPage = (pageName, updateUrl = true, sectionId = "") => {
   const targetPanel = document.querySelector(`[data-page-panel="${pageName}"]`);
 
   if (!targetPanel) {
@@ -41,14 +59,27 @@ const showPage = (pageName, updateUrl = true) => {
   });
 
   navLinks.forEach((link) => {
-    link.classList.toggle("active", link.dataset.page === pageName);
+    const navPages = (link.dataset.navPages || link.dataset.page || "").split(" ");
+    link.classList.toggle("active", navPages.includes(pageName));
   });
 
+  subnavLinks.forEach((link) => {
+    const isActiveProjectArticle = Boolean(link.dataset.section) && link.dataset.section === sectionId;
+    const isActivePage = !link.dataset.section && link.dataset.page === pageName;
+    link.classList.toggle("active", isActiveProjectArticle || isActivePage);
+  });
+
+  updateProjectsView(pageName, sectionId);
+
   if (updateUrl) {
-    history.pushState({ pageName }, "", `#${pageName}`);
+    history.pushState({ pageName, sectionId }, "", sectionId ? `#${sectionId}` : `#${pageName}`);
   }
 
   targetPanel.focus({ preventScroll: true });
+
+  if (sectionId) {
+    document.getElementById(sectionId)?.scrollIntoView({ block: "start" });
+  }
 
   if (pageName === "crossfit") {
     loadCrossfitWorkouts();
@@ -59,10 +90,23 @@ const showPage = (pageName, updateUrl = true) => {
   }
 };
 
+const updateProjectsView = (pageName, sectionId) => {
+  if (!projectIndex) {
+    return;
+  }
+
+  const isProjectArticle = pageName === "projects" && Boolean(sectionId);
+  projectIndex.hidden = isProjectArticle;
+
+  projectArticles.forEach((article) => {
+    article.hidden = !(isProjectArticle && article.id === sectionId);
+  });
+};
+
 pageLinks.forEach((link) => {
   link.addEventListener("click", (event) => {
     event.preventDefault();
-    showPage(link.dataset.page);
+    showPage(link.dataset.page, true, link.dataset.section || "");
     setMenuOpen(false);
   });
 });
@@ -91,11 +135,14 @@ document.addEventListener("keydown", (event) => {
 });
 
 window.addEventListener("popstate", () => {
-  const pageName = window.location.hash.replace("#", "") || "about";
-  showPage(pageName, false);
+  const route = resolveRoute();
+  showPage(route.pageName, false, route.sectionId);
 });
 
-showPage(window.location.hash.replace("#", "") || "about", false);
+{
+  const route = resolveRoute();
+  showPage(route.pageName, false, route.sectionId);
+}
 
 if (crossfitSelect) {
   crossfitSelect.addEventListener("change", () => {

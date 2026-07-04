@@ -23,7 +23,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
     <link rel="manifest" href="site.webmanifest">
-    <link rel="stylesheet" href="styles.css?v=20260628-thoughts">
+    <link rel="stylesheet" href="styles.css?v=20260704-others">
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -73,8 +73,19 @@
         <a class="nav-link active" href="#about" data-page="about">About Me</a>
         <a class="nav-link" href="#education" data-page="education">Education</a>
         <a class="nav-link" href="#work" data-page="work">Work</a>
-        <a class="nav-link" href="#crossfit" data-page="crossfit">Crossfit</a>
-        <a class="nav-link" href="#thoughts" data-page="thoughts">Thoughts</a>
+        <div class="nav-group">
+          <a class="nav-link" href="#projects" data-page="projects">Projects</a>
+          <div class="subnav" aria-label="Project articles">
+            <a class="subnav-link" href="#syncing-my-thoughts" data-page="projects" data-section="syncing-my-thoughts">Syncing my thoughts</a>
+          </div>
+        </div>
+        <div class="nav-group">
+          <a class="nav-link" href="#others" data-page="others" data-nav-pages="others crossfit thoughts">Others</a>
+          <div class="subnav" aria-label="Other sections">
+            <a class="subnav-link" href="#crossfit" data-page="crossfit">Crossfit</a>
+            <a class="subnav-link" href="#thoughts" data-page="thoughts">Thoughts</a>
+          </div>
+        </div>
       </nav>
     </aside>
 
@@ -158,6 +169,22 @@
         </div>
       </section>
 
+      <section class="section" id="others" data-page-panel="others" tabindex="-1" hidden>
+        <h2>Others</h2>
+        <div class="article-list" aria-label="Other sections">
+          <article class="article-entry">
+            <h3>
+              <a class="article-link" href="#crossfit" data-page="crossfit">Crossfit</a>
+            </h3>
+          </article>
+          <article class="article-entry">
+            <h3>
+              <a class="article-link" href="#thoughts" data-page="thoughts">Thoughts</a>
+            </h3>
+          </article>
+        </div>
+      </section>
+
       <section class="section" id="crossfit" data-page-panel="crossfit" tabindex="-1" hidden>
         <p class="eyebrow">Crossfit</p>
         <h2>Strength Stats</h2>
@@ -192,6 +219,33 @@
         </div>
       </section>
 
+      <section class="section projects-section" id="projects" data-page-panel="projects" tabindex="-1" hidden>
+        <div data-project-index>
+          <h2>Projects</h2>
+          <div class="article-list" aria-label="Project subsections">
+            <article class="article-entry">
+              <h3>
+                <a class="article-link" href="#syncing-my-thoughts" data-page="projects" data-section="syncing-my-thoughts">Syncing my thoughts</a>
+              </h3>
+            </article>
+          </div>
+        </div>
+
+        <article class="project-article" id="syncing-my-thoughts" data-project-article hidden>
+          <p class="eyebrow">Projects</p>
+          <h2>Syncing my thoughts</h2>
+          <p>
+            I have a habit of writing notes in Apple Notes: thoughtful lines from podcasts, movies and my own little observations. I wanted to write my thoughts at the same place, but also publish it on the internet (for my own happiness).
+          </p>
+          <p>
+            So, I setup it up in the following way. An Apple Shortcut reads the note that contains my thoughts, extracts the text, and sends it as a text/plain request to a Cloudflare Worker endpoint. The Worker authenticates, splits the entire note into separate thought blocks and writes the published JSON into Cloudflare KV. The JSON is available to the internet thereafter. The trigger is whenever I edit that particular notes.
+          </p>
+          <p>
+            The live result is visible in <a href="#thoughts" data-page="thoughts">Thoughts</a>. I used the same pattern for my <a href="#crossfit" data-page="crossfit">Crossfit journal</a> too: the details are different, but the idea is the same, letting a phone note become structured data on the internet.
+          </p>
+        </article>
+      </section>
+
       <section class="section thoughts-section" id="thoughts" data-page-panel="thoughts" tabindex="-1" hidden>
         <h2>Thoughts</h2>
         <div class="thoughts-summary" aria-live="polite">
@@ -208,6 +262,6 @@
       </footer>
     </main>
 
-    <script src="script.js?v=20260628-thoughts"></script>
+    <script src="script.js?v=20260704-others"></script>
   </body>
 </html>
