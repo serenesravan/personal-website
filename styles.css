@@ -113,6 +113,35 @@ a {
   display: none;
 }
 
+.life-atlas-section {
+  position: relative;
+  max-width: none;
+  min-height: calc(100vh - 112px);
+  padding: 0;
+}
+
+.life-atlas-section iframe {
+  display: block;
+  width: 100%;
+  min-height: calc(100vh - 112px);
+  border: 1px solid var(--border);
+  background: var(--background);
+  opacity: 0;
+  transition: opacity 160ms ease;
+}
+
+.life-atlas-section iframe.is-loaded {
+  opacity: 1;
+}
+
+.life-atlas-loading {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+}
+
 .about-section {
   display: flex;
   align-items: flex-start;

@@ -23,7 +23,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
     <link rel="manifest" href="site.webmanifest">
-    <link rel="stylesheet" href="styles.css?v=20260704-diagram">
+    <link rel="stylesheet" href="styles.css?v=20260711-life-atlas">
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -80,10 +80,11 @@
           </div>
         </div>
         <div class="nav-group">
-          <a class="nav-link" href="#others" data-page="others" data-nav-pages="others crossfit thoughts">Others</a>
+          <a class="nav-link" href="#others" data-page="others" data-nav-pages="others crossfit thoughts life-atlas">Others</a>
           <div class="subnav" aria-label="Other sections">
             <a class="subnav-link" href="#crossfit" data-page="crossfit">Crossfit</a>
             <a class="subnav-link" href="#thoughts" data-page="thoughts">Thoughts</a>
+            <a class="subnav-link" href="#life-atlas" data-page="life-atlas">Life Atlas</a>
           </div>
         </div>
       </nav>
@@ -182,7 +183,26 @@
               <a class="article-link" href="#thoughts" data-page="thoughts">Thoughts</a>
             </h3>
           </article>
+          <article class="article-entry">
+            <h3>
+              <a class="article-link" href="#life-atlas" data-page="life-atlas">Life Atlas</a>
+            </h3>
+          </article>
         </div>
+      </section>
+
+      <section class="section life-atlas-section" id="life-atlas" data-page-panel="life-atlas" tabindex="-1" hidden>
+        <div class="life-atlas-loading" id="life-atlas-loading" role="status">Loading Life Atlas from Cloudflare…</div>
+        <iframe
+          id="life-atlas-frame"
+          title="Sravan's Life Atlas"
+          data-src="https://life-atlas.pages.dev/"
+          loading="lazy"
+          allow="fullscreen"
+        ></iframe>
+        <noscript>
+          <p>Life Atlas requires JavaScript. <a href="https://life-atlas.pages.dev/">Open it directly</a>.</p>
+        </noscript>
       </section>
 
       <section class="section" id="crossfit" data-page-panel="crossfit" tabindex="-1" hidden>
@@ -271,6 +291,6 @@
       </footer>
     </main>
 
-    <script src="script.js?v=20260704-others"></script>
+    <script src="script.js?v=20260711-life-atlas"></script>
   </body>
 </html>

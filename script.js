@@ -19,6 +19,7 @@ const projectArticles = document.querySelectorAll("[data-project-article]");
 let crossfitLoaded = false;
 let crossfitWorkoutMap = new Map();
 let thoughtsLoaded = false;
+let lifeAtlasLoaded = false;
 
 const resolveRoute = () => {
   const hash = window.location.hash.replace("#", "");
@@ -88,7 +89,32 @@ const showPage = (pageName, updateUrl = true, sectionId = "") => {
   if (pageName === "thoughts") {
     loadThoughts();
   }
+
+  if (pageName === "life-atlas") {
+    loadLifeAtlas();
+  }
 };
+
+function loadLifeAtlas() {
+  if (lifeAtlasLoaded) {
+    return;
+  }
+
+  const frame = document.querySelector("#life-atlas-frame");
+  const loading = document.querySelector("#life-atlas-loading");
+  if (!frame?.dataset.src) {
+    return;
+  }
+
+  lifeAtlasLoaded = true;
+  frame.addEventListener("load", () => {
+    if (loading) {
+      loading.hidden = true;
+    }
+    frame.classList.add("is-loaded");
+  }, { once: true });
+  frame.src = frame.dataset.src;
+}
 
 const updateProjectsView = (pageName, sectionId) => {
   if (!projectIndex) {

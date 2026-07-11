@@ -19,3 +19,14 @@ A simple static personal website built with plain HTML, CSS, and JavaScript.
 ## Hosting
 
 Upload these files to the web hosting attached to your GoDaddy domain. Because this is a static site, no server-side runtime or build step is needed.
+
+## Life Atlas
+
+Life Atlas is hosted separately on Cloudflare Pages. Its iframe has only a
+`data-src` in the initial HTML; `script.js` assigns the real `src` when the
+visitor opens `#life-atlas`. This keeps the Three.js bundle, map data, and atlas
+JSON out of the personal website's normal page load.
+
+The current Cloudflare origin is `https://life-atlas.pages.dev/`. If the Pages
+project or custom domain changes, update the `data-src` on `#life-atlas-frame`
+in `index.html`.
