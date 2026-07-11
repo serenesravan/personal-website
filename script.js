@@ -53,6 +53,8 @@ const showPage = (pageName, updateUrl = true, sectionId = "") => {
     return;
   }
 
+  document.body.classList.toggle("life-atlas-active", pageName === "life-atlas");
+
   pagePanels.forEach((panel) => {
     const isActive = panel === targetPanel;
     panel.hidden = !isActive;
