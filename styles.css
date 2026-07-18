@@ -201,6 +201,35 @@ article {
   padding-top: 14px;
 }
 
+.crossfit-section {
+  max-width: 1200px;
+}
+
+.crossfit-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(340px, 380px);
+  align-items: stretch;
+  gap: 48px;
+}
+
+.crossfit-data {
+  min-width: 0;
+}
+
+.workout-animation {
+  align-self: center;
+  justify-self: center;
+  width: 100%;
+  margin: 0;
+}
+
+.workout-animation img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+}
+
 .crossfit-controls {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(140px, 0.45fr);
@@ -389,6 +418,16 @@ article {
   margin-top: auto;
   padding: 28px 0 12px;
   border-top: 1px solid var(--border);
+}
+
+@media (max-width: 980px) {
+  .crossfit-layout {
+    display: block;
+  }
+
+  .workout-animation {
+    display: none;
+  }
 }
 
 @media (max-width: 760px) {

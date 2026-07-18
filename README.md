@@ -30,3 +30,13 @@ JSON out of the personal website's normal page load.
 The current Cloudflare origin is `https://life-atlas.pages.dev/`. If the Pages
 project or custom domain changes, update the `data-src` on `#life-atlas-frame`
 in `index.html`.
+
+## Crossfit animations
+
+The Crossfit page shows one continuously looping workout cycle beside the stats
+on desktop. Its ten frames cover the start and end positions for Back Squat,
+Deadlift, Bench Press, Pull Ups, and Push Ups. The animation is independent of
+the selected workout and lives at `assets/workouts/workout-cycle.gif`.
+
+The editable tldraw SDK generator is in `tools/workout-animations/`. See its
+README for regeneration steps and the workflow for adding another movement.

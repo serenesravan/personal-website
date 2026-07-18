@@ -23,7 +23,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
     <link rel="manifest" href="site.webmanifest">
-    <link rel="stylesheet" href="styles.css?v=20260711-life-atlas-mobile">
+    <link rel="stylesheet" href="styles.css?v=20260719-workout-cycle">
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -205,37 +205,50 @@
         </noscript>
       </section>
 
-      <section class="section" id="crossfit" data-page-panel="crossfit" tabindex="-1" hidden>
+      <section class="section crossfit-section" id="crossfit" data-page-panel="crossfit" tabindex="-1" hidden>
         <p class="eyebrow">Crossfit</p>
         <h2>Strength Stats</h2>
-        <div class="crossfit-controls">
-          <div>
-            <label for="crossfit-workout">Workout</label>
-            <select id="crossfit-workout" name="crossfit-workout">
-              <option value="">Loading workouts...</option>
-            </select>
-          </div>
-          <div>
-            <label for="crossfit-metric">Rep max</label>
-            <select id="crossfit-metric" name="crossfit-metric" disabled>
-              <option value="">Select workout first</option>
-            </select>
-          </div>
-        </div>
-        <div class="crossfit-summary" aria-live="polite">
-          <p class="role" id="crossfit-status">Fetching latest values from the journal.</p>
-          <div class="stat-row" id="crossfit-stat-row" hidden>
-            <div>
-              <span class="stat-label">Best</span>
-              <strong id="crossfit-best">--</strong>
+        <div class="crossfit-layout">
+          <div class="crossfit-data">
+            <div class="crossfit-controls">
+              <div>
+                <label for="crossfit-workout">Workout</label>
+                <select id="crossfit-workout" name="crossfit-workout">
+                  <option value="">Loading workouts...</option>
+                </select>
+              </div>
+              <div>
+                <label for="crossfit-metric">Rep max</label>
+                <select id="crossfit-metric" name="crossfit-metric" disabled>
+                  <option value="">Select workout first</option>
+                </select>
+              </div>
+            </div>
+            <div class="crossfit-summary" aria-live="polite">
+              <p class="role" id="crossfit-status">Fetching latest values from the journal.</p>
+              <div class="stat-row" id="crossfit-stat-row" hidden>
+                <div>
+                  <span class="stat-label">Best</span>
+                  <strong id="crossfit-best">--</strong>
+                </div>
+              </div>
+            </div>
+            <div class="chart-shell" aria-label="Crossfit values">
+              <svg id="crossfit-chart" viewBox="0 0 640 300" role="img" aria-labelledby="crossfit-chart-title crossfit-chart-desc">
+                <title id="crossfit-chart-title">Crossfit workout graph</title>
+                <desc id="crossfit-chart-desc">Completed kilogram entries for the selected workout.</desc>
+              </svg>
             </div>
           </div>
-        </div>
-        <div class="chart-shell" aria-label="Crossfit values">
-          <svg id="crossfit-chart" viewBox="0 0 640 300" role="img" aria-labelledby="crossfit-chart-title crossfit-chart-desc">
-            <title id="crossfit-chart-title">Crossfit workout graph</title>
-            <desc id="crossfit-chart-desc">Completed kilogram entries for the selected workout.</desc>
-          </svg>
+          <figure class="workout-animation" id="crossfit-animation">
+            <img
+              id="crossfit-animation-image"
+              src="assets/workouts/workout-cycle.gif?v=20260719-transparent"
+              alt="Continuously looping stick-figure workout demonstrations"
+              width="640"
+              height="640"
+            >
+          </figure>
         </div>
       </section>
 
@@ -291,6 +304,6 @@
       </footer>
     </main>
 
-    <script src="script.js?v=20260711-life-atlas-mobile"></script>
+    <script src="script.js?v=20260719-workout-cycle"></script>
   </body>
 </html>
