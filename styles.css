@@ -1,3 +1,11 @@
+@font-face {
+  font-family: "Tldraw Draw";
+  src: url("assets/fonts/tldraw-draw.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
 :root {
   color-scheme: light;
   --background: #ffffff;
@@ -578,10 +586,12 @@ article {
   .nav-link {
     display: block;
     min-height: 48px;
-    padding: 12px 16px;
+    padding: 8px 16px;
     border-bottom: 1px solid var(--border);
-    font-size: 16px;
-    font-weight: 600;
+    font-family: "Tldraw Draw", cursive;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 32px;
   }
 
   .nav-link:last-child {
