@@ -582,7 +582,11 @@ article {
 
   .page-content {
     margin-left: 0;
-    padding: 32px 24px 104px;
+    padding: 16px 24px 104px;
+  }
+
+  .section {
+    padding-top: 16px;
   }
 
   .life-atlas-active .page-content {
