@@ -428,6 +428,28 @@ article {
   .workout-animation {
     display: none;
   }
+
+  body.mobile-crossfit-intro-active {
+    overflow: hidden;
+  }
+
+  .workout-animation.mobile-intro-active {
+    position: fixed;
+    z-index: 20;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    margin: 0;
+    background: var(--background);
+  }
+
+  .workout-animation.mobile-intro-active img {
+    width: min(88vw, 380px);
+    height: auto;
+  }
 }
 
 @media (max-width: 760px) {

@@ -12,6 +12,8 @@ const crossfitStatus = document.querySelector("#crossfit-status");
 const crossfitStatRow = document.querySelector("#crossfit-stat-row");
 const crossfitBest = document.querySelector("#crossfit-best");
 const crossfitChart = document.querySelector("#crossfit-chart");
+const crossfitAnimation = document.querySelector("#crossfit-animation");
+const crossfitAnimationImage = document.querySelector("#crossfit-animation-image");
 const thoughtsStatus = document.querySelector("#thoughts-status");
 const thoughtsList = document.querySelector("#thoughts-list");
 const projectIndex = document.querySelector("[data-project-index]");
@@ -20,6 +22,10 @@ let crossfitLoaded = false;
 let crossfitWorkoutMap = new Map();
 let thoughtsLoaded = false;
 let lifeAtlasLoaded = false;
+let mobileCrossfitIntroShown = false;
+
+const mobileCrossfitQuery = window.matchMedia("(max-width: 980px)");
+const mobileCrossfitIntroDuration = 5000;
 
 const resolveRoute = () => {
   const hash = window.location.hash.replace("#", "");
@@ -85,6 +91,7 @@ const showPage = (pageName, updateUrl = true, sectionId = "") => {
   }
 
   if (pageName === "crossfit") {
+    runMobileCrossfitIntro();
     loadCrossfitWorkouts();
   }
 
@@ -96,6 +103,41 @@ const showPage = (pageName, updateUrl = true, sectionId = "") => {
     loadLifeAtlas();
   }
 };
+
+function runMobileCrossfitIntro() {
+  if (
+    mobileCrossfitIntroShown ||
+    !mobileCrossfitQuery.matches ||
+    !crossfitAnimation ||
+    !crossfitAnimationImage
+  ) {
+    return;
+  }
+
+  mobileCrossfitIntroShown = true;
+  crossfitAnimation.classList.add("mobile-intro-active");
+  crossfitAnimation.removeAttribute("aria-hidden");
+  document.body.classList.add("mobile-crossfit-intro-active");
+
+  let finishTimer;
+  const fallbackTimer = window.setTimeout(finish, mobileCrossfitIntroDuration + 2000);
+
+  function finish() {
+    window.clearTimeout(fallbackTimer);
+    window.clearTimeout(finishTimer);
+    crossfitAnimation.classList.remove("mobile-intro-active");
+    crossfitAnimation.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("mobile-crossfit-intro-active");
+  }
+
+  crossfitAnimationImage.addEventListener("load", () => {
+    finishTimer = window.setTimeout(finish, mobileCrossfitIntroDuration);
+  }, { once: true });
+
+  const animationUrl = new URL(crossfitAnimationImage.src, window.location.href);
+  animationUrl.searchParams.set("mobile-play", String(Date.now()));
+  crossfitAnimationImage.src = animationUrl.href;
+}
 
 function loadLifeAtlas() {
   if (lifeAtlasLoaded) {
