@@ -527,41 +527,27 @@ article {
     cursor: pointer;
   }
 
-  .menu-toggle span {
+  .menu-toggle .menu-icon {
     position: absolute;
-    left: 50%;
-    top: 50%;
     display: block;
-    width: 22px;
-    height: 2px;
-    background: currentColor;
-    border-radius: 999px;
-    transition: transform 160ms ease, opacity 160ms ease;
+    width: 32px;
+    height: 32px;
+    transition: opacity 160ms ease, transform 160ms ease;
   }
 
-  .menu-toggle span:first-child {
-    transform: translate(-50%, -8px);
-  }
-
-  .menu-toggle span:nth-child(2) {
-    transform: translate(-50%, -50%);
-  }
-
-  .menu-toggle span:last-child {
-    transform: translate(-50%, 6px);
-  }
-
-  .sidebar.menu-open .menu-toggle span:first-child {
-    transform: translate(-50%, -50%) rotate(45deg);
-  }
-
-  .sidebar.menu-open .menu-toggle span:nth-child(2) {
+  .menu-toggle .menu-icon-close {
     opacity: 0;
-    transform: translate(-50%, -50%) scaleX(0);
+    transform: scale(0.85);
   }
 
-  .sidebar.menu-open .menu-toggle span:last-child {
-    transform: translate(-50%, -50%) rotate(-45deg);
+  .sidebar.menu-open .menu-icon-open {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+
+  .sidebar.menu-open .menu-icon-close {
+    opacity: 1;
+    transform: scale(1);
   }
 
   .site-nav {
