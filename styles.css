@@ -168,7 +168,7 @@ a {
 
 .section-heading {
   border-bottom: 0;
-  font-weight: 400;
+  font-weight: normal;
   line-height: 1.6;
   text-decoration: none;
 }
