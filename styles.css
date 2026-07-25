@@ -423,6 +423,10 @@ article {
   color: var(--muted);
 }
 
+#education .role {
+  color: var(--link);
+}
+
 .experience {
   margin-bottom: 8px;
   color: var(--link);
