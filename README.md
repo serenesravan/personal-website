@@ -40,3 +40,14 @@ the selected workout and lives at `assets/workouts/workout-cycle.gif`.
 
 The editable tldraw SDK generator is in `tools/workout-animations/`. See its
 README for regeneration steps and the workflow for adding another movement.
+
+## Mobility
+
+Others links to `/mobility/`, a static port of the Back Mobility tracker.
+Check-ins are stored in each visitor's browser. The Activity tab can merge
+check-in history copied from the original private site.
+
+The source lives in `tools/mobility/`. Run `npm ci`, `npm run check`, and
+`npm run build` from that directory after editing the tracker. Commit the
+regenerated `mobility/app.js` and its license file so GitHub Pages can serve
+the app directly.
