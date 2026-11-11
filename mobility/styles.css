@@ -108,7 +108,6 @@
 .mobility-section .sketch-color--gray { color: #707070; }
 
 .mobility-section .calendar { --calendar-border-width: 1.05px; max-width: 520px; }
-.mobility-section .check-in-storage { margin-top: 22px; }
 .mobility-section .month-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 7px; }
 .mobility-section .month-controls { display: flex; flex-shrink: 0; gap: 4px; }
 .mobility-section .month-button {

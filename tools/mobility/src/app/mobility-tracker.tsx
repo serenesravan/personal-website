@@ -369,7 +369,6 @@ export function MobilityTracker({ anchor, swipeColors, guideColors }: {
 
               {writeError === "calendar" && selected && <p className="message error" role="alert">That change didn’t save. Try again.</p>}
             </section>
-            <p className="message check-in-storage">Check-ins are saved in this browser.</p>
           </section>
         )}
 

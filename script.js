@@ -176,7 +176,7 @@ async function loadMobility() {
   const root = document.getElementById("mobility-root");
 
   try {
-    mobilityModule ??= import("./mobility/app.js?v=20261112-check-ins");
+    mobilityModule ??= import("./mobility/app.js?v=20261112-activity-calendar");
     const { renderMobility } = await mobilityModule;
     const { pageName, sectionId } = resolveRoute();
     if (pageName === "mobility") renderMobility(root, sectionId);
