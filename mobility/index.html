@@ -4,16 +4,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Mobility | Sravan Bagalkote</title>
-    <meta name="description" content="Daily back mobility drills, workout check-ins, and progress tracking.">
-    <link rel="canonical" href="https://sravanbagalkote.in/mobility/">
-    <link rel="icon" href="favicon.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="styles.css">
-    <script src="app.js" defer></script>
+    <link rel="canonical" href="https://sravanbagalkote.in/">
+    <script>
+      const destination = new URL("../", window.location.href);
+      const anchor = window.location.hash.slice(1);
+      destination.search = window.location.search;
+      destination.hash = anchor && anchor !== "today" ? `mobility/${anchor}` : "mobility";
+      window.location.replace(destination);
+    </script>
   </head>
   <body>
-    <div id="mobility-root"></div>
-    <noscript>
-      <p>Mobility requires JavaScript for daily drills and tracking. <a href="../#others">Back to Others</a></p>
-    </noscript>
+    <p><a href="../#mobility">Open Mobility</a></p>
   </body>
 </html>

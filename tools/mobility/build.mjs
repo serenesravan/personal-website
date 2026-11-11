@@ -7,6 +7,7 @@ await build({
   entryPoints: ["src/main.tsx"],
   outfile: output,
   bundle: true,
+  format: "esm",
   minify: true,
   jsx: "automatic",
   define: { "process.env.NODE_ENV": '"production"' },

@@ -22,6 +22,7 @@ let crossfitLoaded = false;
 let crossfitWorkoutMap = new Map();
 let thoughtsLoaded = false;
 let lifeAtlasLoaded = false;
+let mobilityModule;
 let mobileCrossfitIntroShown = false;
 
 const mobileCrossfitQuery = window.matchMedia("(max-width: 980px)");
@@ -32,6 +33,10 @@ const resolveRoute = () => {
 
   if (!hash) {
     return { pageName: "about", sectionId: "" };
+  }
+
+  if (hash.startsWith("mobility/")) {
+    return { pageName: "mobility", sectionId: hash.slice("mobility/".length) };
   }
 
   const projectArticle = document.getElementById(hash);
@@ -59,6 +64,7 @@ const showPage = (pageName, updateUrl = true, sectionId = "") => {
     return;
   }
 
+  const wasHidden = targetPanel.hidden;
   document.body.classList.toggle("life-atlas-active", pageName === "life-atlas");
 
   pagePanels.forEach((panel) => {
@@ -84,9 +90,11 @@ const showPage = (pageName, updateUrl = true, sectionId = "") => {
     history.pushState({ pageName, sectionId }, "", sectionId ? `#${sectionId}` : `#${pageName}`);
   }
 
-  targetPanel.focus({ preventScroll: true });
+  if (pageName !== "mobility" || wasHidden || updateUrl) {
+    targetPanel.focus({ preventScroll: true });
+  }
 
-  if (sectionId) {
+  if (pageName === "projects" && sectionId) {
     document.getElementById(sectionId)?.scrollIntoView({ block: "start" });
   }
 
@@ -101,6 +109,10 @@ const showPage = (pageName, updateUrl = true, sectionId = "") => {
 
   if (pageName === "life-atlas") {
     loadLifeAtlas();
+  }
+
+  if (pageName === "mobility") {
+    loadMobility();
   }
 };
 
@@ -160,6 +172,19 @@ function loadLifeAtlas() {
   frame.src = frame.dataset.src;
 }
 
+async function loadMobility() {
+  const root = document.getElementById("mobility-root");
+
+  try {
+    mobilityModule ??= import("./mobility/app.js?v=20261111-site-navigation");
+    const { renderMobility } = await mobilityModule;
+    const { pageName, sectionId } = resolveRoute();
+    if (pageName === "mobility") renderMobility(root, sectionId);
+  } catch {
+    root.querySelector("[role='status']").textContent = "Couldn’t load the mobility tracker. Reload the page to try again.";
+  }
+}
+
 const updateProjectsView = (pageName, sectionId) => {
   if (!projectIndex) {
     return;
@@ -204,15 +229,14 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
-window.addEventListener("popstate", () => {
-  const route = resolveRoute();
-  showPage(route.pageName, false, route.sectionId);
-});
-
-{
+function showCurrentRoute() {
   const route = resolveRoute();
   showPage(route.pageName, false, route.sectionId);
 }
+
+window.addEventListener("popstate", showCurrentRoute);
+window.addEventListener("hashchange", showCurrentRoute);
+showCurrentRoute();
 
 if (crossfitSelect) {
   crossfitSelect.addEventListener("change", () => {

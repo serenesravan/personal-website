@@ -43,7 +43,8 @@ README for regeneration steps and the workflow for adding another movement.
 
 ## Mobility
 
-Others links to `/mobility/`, a static port of the Back Mobility tracker.
+The primary navigation opens the Back Mobility tracker at `/#mobility`.
+Legacy `/mobility/` links forward to the matching view in the main site.
 Check-ins are stored in each visitor's browser. The Activity tab can merge
 check-in history copied from the original private site.
 

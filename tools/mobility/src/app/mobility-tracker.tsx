@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useId, useRef, useState } from "react";
-import { ArrowLeft, ArrowRight, Check, Info } from "lucide-react";
+import { ArrowRight, Check, Info } from "lucide-react";
 import { deviceDay, formatDay, monday, monthCells, shiftDay, shiftMonth, trackerStats, WEEKLY_GOAL } from "../lib/tracker";
 import { checkInsKey, loadCheckIns, updateCheckIns } from "../lib/check-ins";
 import { dailyDrills, isDrillAnchor } from "../lib/mobility";
@@ -83,17 +83,16 @@ function StreakNumber({ value }: { value: number }) {
   );
 }
 
-export function MobilityTracker({ initialToday, swipeColors, guideColors }: {
-  initialToday: string;
+export function MobilityTracker({ anchor, swipeColors, guideColors }: {
+  anchor: string;
   swipeColors: readonly SketchColor[];
   guideColors: readonly ChevronColor[];
 }) {
-  const [anchor, setAnchor] = useState("");
   const linkedDrill = isDrillAnchor(anchor);
   const view = linkedDrill ? "plan" : navigation.find(({ id }) => id === anchor)?.id ?? "today";
-  const main = useRef<HTMLElement>(null);
+  const content = useRef<HTMLDivElement>(null);
   const previousView = useRef<View>("today");
-  const [today, setToday] = useState(initialToday);
+  const [today, setToday] = useState(deviceDay);
   const [days, setDays] = useState<Set<string> | null>(null);
   const [monthOverride, setMonthOverride] = useState<string>();
   const [selected, setSelected] = useState<string>();
@@ -105,18 +104,11 @@ export function MobilityTracker({ initialToday, swipeColors, guideColors }: {
   const saving = useRef(false);
 
   useEffect(() => {
-    const readAnchor = () => setAnchor(window.location.hash.slice(1));
-    readAnchor();
-    window.addEventListener("hashchange", readAnchor);
-    return () => window.removeEventListener("hashchange", readAnchor);
-  }, []);
-
-  useEffect(() => {
     if (linkedDrill) {
       openDrill(anchor);
     } else if (view !== previousView.current) {
       window.scrollTo(0, 0);
-      main.current?.focus({ preventScroll: true });
+      content.current?.focus({ preventScroll: true });
     }
     previousView.current = view;
   }, [anchor, linkedDrill, view]);
@@ -215,43 +207,38 @@ export function MobilityTracker({ initialToday, swipeColors, guideColors }: {
   ) : !ready ? <p className="message" role="status">Loading check-ins…</p> : null;
 
   return (
-    <div className="site-shell">
-      <header className="site-sidebar">
-        <a className="back-link" href="../#others"><ArrowLeft aria-hidden="true" size={15} /> Others</a>
-        <nav className="site-nav" aria-label="Mobility">
-          {navigation.map(({ id, label }) => (
-            <a key={id} href={"#" + id} aria-current={view === id ? "page" : undefined}>
-              {label}
-              {view === id && (
-                <svg className="site-nav-outline" viewBox="0 0 96 44" preserveAspectRatio="none"
-                  fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M6 4.6 C19 2.3 33 5.1 48 3.5 Q72 1.9 88 4.1 Q92.3 4.7 92 10.1 C91.2 18.4 93.7 27.3 91.3 37.8 Q89.9 40.8 84.2 40.2 C68.4 39.2 58.3 42.1 43.8 40.2 Q24.4 38.9 7.1 40.6 Q2.8 39.8 3.8 34.1 C4.9 25.2 2 16 3.6 9 Q4.2 6.2 6 4.6 Z"
-                    strokeWidth="1.25" vectorEffect="non-scaling-stroke" />
-                  <path d="M2.2 15.9 Q1.2 8.9 4.7 5.7 M77.6 41.9 Q86.7 42.9 91 39.3"
-                    strokeWidth=".65" opacity=".65" vectorEffect="non-scaling-stroke" />
-                </svg>
-              )}
-            </a>
-          ))}
-        </nav>
-      </header>
+    <>
+      <nav className="mobility-tabs" aria-label="Mobility">
+        {navigation.map(({ id, label }) => (
+          <a key={id} href={id === "today" ? "#mobility" : `#mobility/${id}`} aria-current={view === id ? "page" : undefined}>
+            {label}
+            {view === id && (
+              <svg className="mobility-tab-outline" viewBox="0 0 96 44" preserveAspectRatio="none"
+                fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M6 4.6 C19 2.3 33 5.1 48 3.5 Q72 1.9 88 4.1 Q92.3 4.7 92 10.1 C91.2 18.4 93.7 27.3 91.3 37.8 Q89.9 40.8 84.2 40.2 C68.4 39.2 58.3 42.1 43.8 40.2 Q24.4 38.9 7.1 40.6 Q2.8 39.8 3.8 34.1 C4.9 25.2 2 16 3.6 9 Q4.2 6.2 6 4.6 Z"
+                  strokeWidth="1.25" vectorEffect="non-scaling-stroke" />
+                <path d="M2.2 15.9 Q1.2 8.9 4.7 5.7 M77.6 41.9 Q86.7 42.9 91 39.3"
+                  strokeWidth=".65" opacity=".65" vectorEffect="non-scaling-stroke" />
+              </svg>
+            )}
+          </a>
+        ))}
+      </nav>
 
-      <main ref={main} className="page-content" data-view={view} tabIndex={-1}>
+      <div ref={content} className="mobility-content" tabIndex={-1}>
         <div className="sr-only" role="status">{announcement}</div>
         {view === "today" && (
-          <section className="today-view" aria-labelledby="today-title">
-            <h1 id="today-title" className="sr-only">Today</h1>
-
+          <section className="today-view" aria-label="Today">
             <section className="daily-mix" aria-labelledby="routine-title">
               <div className="section-row">
-                <h2 id="routine-title">Today’s mix</h2>
-                <a className="inline-link" href="#plan">Guide <ArrowRight aria-hidden="true" size={15} /></a>
+                <h3 id="routine-title">Today’s mix</h3>
+                <a className="inline-link" href="#mobility/plan">Guide <ArrowRight aria-hidden="true" size={15} /></a>
               </div>
               <ul className="routine-list" role="list">
                 {session.map((drill) => (
                   <li key={drill.id}>
                     <SketchShape className="routine-bullet" filled={false} />
-                    <a href={"#" + drill.id}>{drill.name}</a>
+                    <a href={`#mobility/${drill.id}`}>{drill.name}</a>
                   </li>
                 ))}
               </ul>
@@ -291,8 +278,8 @@ export function MobilityTracker({ initialToday, swipeColors, guideColors }: {
                   strokeWidth=".65" opacity=".55" vectorEffect="non-scaling-stroke" />
               </svg>
               <div className="section-row">
-                <h2 id="week-title">This week</h2>
-                <a className="inline-link" href="#activity">Calendar <ArrowRight aria-hidden="true" size={15} /></a>
+                <h3 id="week-title">This week</h3>
+                <a className="inline-link" href="#mobility/activity">Calendar <ArrowRight aria-hidden="true" size={15} /></a>
               </div>
               <ol className="week-strip">
                 {weekdays.map((label, index) => {
@@ -334,12 +321,11 @@ export function MobilityTracker({ initialToday, swipeColors, guideColors }: {
         )}
 
         {view === "activity" && (
-          <section className="activity-view" aria-labelledby="calendar-title">
-            <h1 id="calendar-title" className="sr-only">Activity</h1>
+          <section className="activity-view" aria-label="Activity">
             {loadMessage}
             <section className="calendar" aria-label="Check-in calendar">
               <div className="month-row">
-                <h2 aria-live="polite">{monthLabel}</h2>
+                <h3 aria-live="polite">{monthLabel}</h3>
                 <div className="month-controls">
                   <button type="button" className="month-button" aria-label="Previous month" onClick={() => changeMonth(-1)}>
                     <MonthButtonIcon kind="previous" />
@@ -396,7 +382,7 @@ export function MobilityTracker({ initialToday, swipeColors, guideColors }: {
         )}
 
         {view === "plan" && <MobilityPlan colors={guideColors} />}
-      </main>
-    </div>
+      </div>
+    </>
   );
 }
