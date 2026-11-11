@@ -108,11 +108,7 @@
 .mobility-section .sketch-color--gray { color: #707070; }
 
 .mobility-section .calendar { --calendar-border-width: 1.05px; max-width: 520px; }
-.mobility-section .check-in-storage { max-width: 520px; margin: 22px 0; font-size: .875rem; }
-.mobility-section .check-in-storage summary { cursor: pointer; color: var(--blue); }
-.mobility-section .check-in-storage details { padding-block: 8px; }
-.mobility-section .check-in-storage label { display: block; margin-top: 8px; }
-.mobility-section .check-in-storage textarea { display: block; width: 100%; margin-top: 4px; font: inherit; }
+.mobility-section .check-in-storage { margin-top: 22px; }
 .mobility-section .month-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 7px; }
 .mobility-section .month-controls { display: flex; flex-shrink: 0; gap: 4px; }
 .mobility-section .month-button {

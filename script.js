@@ -176,7 +176,7 @@ async function loadMobility() {
   const root = document.getElementById("mobility-root");
 
   try {
-    mobilityModule ??= import("./mobility/app.js?v=20261111-site-navigation");
+    mobilityModule ??= import("./mobility/app.js?v=20261112-check-ins");
     const { renderMobility } = await mobilityModule;
     const { pageName, sectionId } = resolveRoute();
     if (pageName === "mobility") renderMobility(root, sectionId);

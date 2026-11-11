@@ -45,8 +45,7 @@ README for regeneration steps and the workflow for adding another movement.
 
 The primary navigation opens the Back Mobility tracker at `/#mobility`.
 Legacy `/mobility/` links forward to the matching view in the main site.
-Check-ins are stored in each visitor's browser. The Activity tab can merge
-check-in history copied from the original private site.
+Check-ins are stored in each visitor's browser.
 
 The source lives in `tools/mobility/`. Run `npm ci`, `npm run check`, and
 `npm run build` from that directory after editing the tracker. Commit the

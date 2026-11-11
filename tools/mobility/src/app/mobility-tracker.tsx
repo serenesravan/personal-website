@@ -6,7 +6,6 @@ import { deviceDay, formatDay, monday, monthCells, shiftDay, shiftMonth, tracker
 import { checkInsKey, loadCheckIns, updateCheckIns } from "../lib/check-ins";
 import { dailyDrills, isDrillAnchor } from "../lib/mobility";
 import { seededRandom } from "../lib/seeded-random";
-import { CheckInImport } from "./check-in-import";
 import { MobilityPlan, openDrill, type ChevronColor } from "./mobility-plan";
 import { SwipeCheckIn } from "./swipe-check-in";
 import { SketchShape, sketchColors, type SketchColor } from "./sketch-shapes";
@@ -170,13 +169,6 @@ export function MobilityTracker({ anchor, swipeColors, guideColors }: {
       saving.current = false;
       setPendingDay(undefined);
     }
-  }
-
-  async function mergeCheckIns(imported: Set<string>) {
-    const merged = await updateCheckIns((current) => {
-      for (const day of imported) current.add(day);
-    });
-    setDays(merged);
   }
 
   const month = monthOverride ?? today.slice(0, 7);
@@ -377,7 +369,7 @@ export function MobilityTracker({ anchor, swipeColors, guideColors }: {
 
               {writeError === "calendar" && selected && <p className="message error" role="alert">That change didn’t save. Try again.</p>}
             </section>
-            <CheckInImport merge={mergeCheckIns} />
+            <p className="message check-in-storage">Check-ins are saved in this browser.</p>
           </section>
         )}
 
