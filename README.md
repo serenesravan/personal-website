@@ -43,7 +43,7 @@ README for regeneration steps and the workflow for adding another movement.
 
 ## Mobility
 
-The primary navigation opens the Back Mobility tracker at `/#mobility`.
+Others links to the Back Mobility tracker at `/#mobility`.
 Legacy `/mobility/` links forward to the matching view in the main site.
 Check-ins are stored in each visitor's browser.
 
